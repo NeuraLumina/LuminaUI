@@ -1,43 +1,42 @@
-LuminaUI
+# LuminaUI
 
-LuminaUI is a lightweight, Flutter-inspired UI library for building web interfaces using vanilla JavaScript and HTML.
+A lightweight, Flutter-inspired UI library for building web interfaces with vanilla JavaScript and HTML.
 
-It provides a structured, composable layout system—similar to Flutter’s widget tree—while staying close to the DOM with zero dependencies.
-
----
-
-✨ Why LuminaUI?
-
-Modern web UI development often becomes:
-
-- fragmented (HTML + CSS + JS everywhere)
-- inconsistent (different layout patterns across components)
-- overly complex (heavy frameworks for simple apps)
-
-LuminaUI focuses on:
-
-- Clarity — predictable, composable UI structure
-- Consistency — unified layout system (Column, Row, etc.)
-- Simplicity — no build tools, no framework overhead
-- Control — direct DOM output using vanilla JavaScript
+The idea is simple: instead of scattering HTML, CSS, and JS across files, you compose UI using pure JavaScript functions — the same way you'd build a widget tree in Flutter. No framework overhead, no build step, no dependencies.
 
 ---
 
-🧱 Core Concepts
+## ✨ Why LuminaUI?
 
-LuminaUI follows a widget-based composition model:
+Most web projects start clean and end up messy. HTML in one place, styles bleeding in from three different files, JS wiring it all together with varying degrees of confidence. Layout patterns drift between components. Things stop making sense fast.
 
+LuminaUI trades that for a single composable model:
+
+- Predictable structure — everything is a function returning a DOM node
+- One layout system — `Column`, `Row`, and friends, used consistently
+- No toolchain — open `index.html` and it works
+- Full DOM control — no virtual DOM layer hiding what's actually happening
+
+---
+
+## 🧱 Core Concepts
+
+LuminaUI uses a widget-based composition model. You build UI by nesting JavaScript functions:
+
+```js
 Column([
   Text("Hello World"),
   Button({ text: "Click Me", onClick: handleClick })
 ])
+```
 
-Instead of mixing HTML, CSS, and JS, you build UI using pure JavaScript functions.
+That's it. No JSX, no templates, no special syntax.
 
 ---
 
-🚀 Example
+## 🚀 Example
 
+```js
 import { Column, Row } from "./widgets/layout.js";
 import { Button } from "./widgets/controls.js";
 import { Text } from "./widgets/text.js";
@@ -53,14 +52,8 @@ function App(update) {
     Text("Count: " + count()),
 
     Row([
-      Button({
-        text: "+",
-        onClick: () => setCount(count() + 1)
-      }),
-      Button({
-        text: "-",
-        onClick: () => setCount(count() - 1)
-      })
+      Button({ text: "+", onClick: () => setCount(count() + 1) }),
+      Button({ text: "-", onClick: () => setCount(count() - 1) })
     ])
   ]);
 }
@@ -69,11 +62,13 @@ const root = document.getElementById("app");
 
 let update;
 update = mount(() => App(update), root);
+```
 
 ---
 
-📦 Project Structure
+## 📦 Project Structure
 
+```
 lumina-ui/
 │
 ├── core/
@@ -91,100 +86,79 @@ lumina-ui/
 │
 ├── main.js             # entry point
 └── index.html
+```
 
 ---
 
-🧩 Available Widgets
+## 🧩 Available Widgets
 
-Layout
+**Layout:** `Column(children)`, `Row(children)`
 
-- "Column(children)"
-- "Row(children)"
+**Basic:** `Text(value)`, `Button({ text, onClick })`
 
-Basic
-
-- "Text(value)"
-- "Button({ text, onClick })"
-
-«More widgets (Padding, Expanded, Stack) are planned.»
+More widgets — `Padding`, `Expanded`, `Stack` — are in progress.
 
 ---
 
-⚙️ How It Works
+## ⚙️ How It Works
 
-LuminaUI is built on three core primitives:
+Three primitives power everything:
 
-- Element factory → creates DOM nodes
-- Renderer → mounts and updates UI
-- State system → triggers re-renders
+- **Element factory** — creates DOM nodes
+- **Renderer** — mounts and re-renders the UI
+- **State system** — triggers updates when state changes
 
-There is:
-
-- no virtual DOM
-- no compilation step
-- no external dependencies
+No virtual DOM. No compilation. No external packages.
 
 ---
 
-🛠️ Getting Started
+## 🛠️ Getting Started
 
-1. Clone the repository:
-
+```bash
 git clone https://github.com/<your-username>/lumina-ui.git
 cd lumina-ui
+```
 
-2. Open "index.html" in your browser
-
-«No build step required.»
-
----
-
-📌 Design Goals
-
-- Minimal surface area
-- Predictable behavior
-- Framework-like structure without framework complexity
-- Easy to read and reason about
+Open `index.html` in a browser. That's the whole setup.
 
 ---
 
-⚠️ Current Limitations
+## 📌 Design Goals
 
-LuminaUI is experimental and currently lacks:
-
-- partial DOM diffing (full re-render on update)
-- component-level state isolation
-- advanced layout primitives
-- lifecycle management
-
-These are active areas of development.
+Small API surface. Predictable behavior. Something that feels like a framework but doesn't require one.
 
 ---
 
-🧭 Roadmap
+## ⚠️ Current Limitations
 
-- [ ] Padding, Expanded, Center widgets
-- [ ] Improved rendering (diffing)
+LuminaUI is experimental. Right now it does a full re-render on every state update — no diffing. Component-level state isolation, advanced layout primitives, and lifecycle hooks don't exist yet.
+
+These are the next things to fix.
+
+---
+
+## 🧭 Roadmap
+
+- [ ] `Padding`, `Expanded`, `Center` widgets
+- [ ] Smarter rendering (diffing)
 - [ ] Component isolation
 - [ ] Theming system
 - [ ] Basic routing
 
 ---
 
-🤝 Contributing
+## 🤝 Contributing
 
-Contributions, ideas, and feedback are welcome.
-
-Please open an issue or submit a pull request.
+Issues and pull requests are welcome. If you have an idea or hit a bug, open an issue.
 
 ---
 
-📄 License
+## 📄 License
 
-MIT License
+MIT
 
 ---
 
-💡 Vision
+## 💡 Vision
 
-LuminaUI aims to bring a structured, Flutter-inspired development model to the web—without abandoning the simplicity and power of vanilla JavaScript.
+LuminaUI is an experiment in bringing Flutter's widget model to the web without giving up vanilla JavaScript. Whether that ends up being useful beyond personal projects remains to be seen — but the goal is a UI system you can actually read and reason about.
