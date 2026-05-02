@@ -84,7 +84,7 @@ lumina-ui/
 ├── app/
 │   └── App.js          # application code
 │
-├── main.js             # entry point
+├── lumina-ui.js             # entry point
 └── index.html
 ```
 
